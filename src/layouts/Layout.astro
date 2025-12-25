@@ -1,0 +1,55 @@
+---
+import DockWrapper from "@/components/DockWrapper";
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Josiah Hickman", description = "Personal website of Josiah Hickman" } = Astro.props;
+
+// Check if current page is a project page
+const currentPath = Astro.url.pathname;
+const isProjectPage = currentPath.startsWith('/projects/') && currentPath !== '/projects' && currentPath !== '/projects/';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+    
+    <!-- Floating Dock - Automatically included on all pages -->
+    <div class="fixed bottom-10 left-0 w-full flex items-center justify-center z-50 pointer-events-none">
+      <div class="pointer-events-auto">
+        <DockWrapper showTOC={isProjectPage} client:load />
+      </div>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  main {
+    min-height: 100vh;
+    padding-bottom: 8rem; /* Space for floating dock */
+  }
+</style>

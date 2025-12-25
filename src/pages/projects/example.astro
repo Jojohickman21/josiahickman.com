@@ -1,0 +1,227 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+// This is an example project page
+// Create similar pages at /src/pages/projects/[your-project].astro
+---
+
+<Layout title="Example Project - Josiah Hickman" description="An example project page demonstrating the Table of Contents feature">
+  <article class="project-container">
+    <!-- Table of Contents - The TOC button in floating dock will scroll here -->
+    <aside id="table-of-contents" class="toc">
+      <h2>Table of Contents</h2>
+      <nav>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#tech-stack">Tech Stack</a></li>
+          <li><a href="#challenges">Challenges</a></li>
+          <li><a href="#results">Results</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Project Content -->
+    <div class="content">
+      <header>
+        <h1>Example Project</h1>
+        <p class="subtitle">A showcase of the floating dock with TOC button</p>
+      </header>
+
+      <section id="overview">
+        <h2>Overview</h2>
+        <p>
+          This is an example project page. Notice the Table of Contents button in the floating dock at the bottom?
+          It only appears on project pages like this one!
+        </p>
+        <p>
+          Click the TOC button to smoothly scroll to the table of contents sidebar.
+        </p>
+      </section>
+
+      <section id="features">
+        <h2>Features</h2>
+        <ul>
+          <li>Glassmorphism design with heavy blur effects</li>
+          <li>Conditional TOC button (only on project pages)</li>
+          <li>Smooth scroll interactions</li>
+          <li>Responsive layout</li>
+          <li>Dark mode support</li>
+        </ul>
+      </section>
+
+      <section id="tech-stack">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>Astro</li>
+          <li>React</li>
+          <li>TypeScript</li>
+          <li>Framer Motion</li>
+          <li>TailwindCSS</li>
+        </ul>
+      </section>
+
+      <section id="challenges">
+        <h2>Challenges</h2>
+        <p>
+          Creating a conditional UI element that only appears on specific pages required
+          careful path detection in the Astro layout component.
+        </p>
+      </section>
+
+      <section id="results">
+        <h2>Results</h2>
+        <p>
+          A beautiful, functional floating dock with premium glassmorphism effects
+          and context-aware navigation features.
+        </p>
+      </section>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .project-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 3rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .toc h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .toc nav ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc nav li {
+    margin-bottom: 0.5rem;
+  }
+
+  .toc nav a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc nav a:hover {
+    color: orange;
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  header {
+    margin-bottom: 3rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, orange, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: #666;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  section p {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  section ul {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #555;
+    margin-left: 1.5rem;
+  }
+
+  section li {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .project-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .toc {
+      position: relative;
+      top: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    .toc {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .toc h2 {
+      color: #fff;
+    }
+
+    .toc nav a {
+      color: #aaa;
+    }
+
+    .toc nav a:hover {
+      color: orange;
+    }
+
+    section h2 {
+      color: #fff;
+    }
+
+    section p,
+    section ul {
+      color: #ccc;
+    }
+  }
+</style>

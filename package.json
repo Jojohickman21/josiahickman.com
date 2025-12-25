@@ -1,0 +1,43 @@
+{
+  "name": "josiahickman.com",
+  "version": "1.0.0",
+  "description": "It's an aesthetics thing",
+  "main": "index.js",
+  "directories": {
+    "src": "src",
+    "public": "public"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jojohickman21/josiahickman.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jojohickman21/josiahickman.com/issues"
+  },
+  "homepage": "https://github.com/Jojohickman21/josiahickman.com#readme",
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@tabler/icons-react": "^3.36.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.6",
+    "clsx": "^2.1.1",
+    "motion": "^12.23.26",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
