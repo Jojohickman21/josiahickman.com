@@ -1,29 +1,60 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import DitherBackground from '@/components/DitherBackground';
 ---
 
-<Layout title="Projects - Josiah Hickman">
-  <div class="container">
-    <h1>Projects</h1>
-    <p>Check out my projects below.</p>
+<Layout title="Projects - Josiah Hickman" showDither={false}>
+  <div class="w-full bg-white dark:bg-neutral-900 min-h-screen flex flex-col items-center">
+    <!-- Intro Section with localized Dither -->
+    <section class="relative w-full border-b border-neutral-100 dark:border-white/5 overflow-hidden h-[50vh] min-h-[400px]">
+      <div class="absolute inset-0 z-0">
+        <DitherBackground client:only="react" className="absolute inset-0 z-0 pointer-events-none" src="/droids_header.jpg" gridSize={2} colorMode="original" />
+      </div>
+    </section>
+
+    <div class="max-w-4xl mx-auto px-6 py-20 w-full bg-white dark:bg-neutral-900">
+      <div class="mb-16">
+        <h1 class="text-4xl md:text-5xl font-serif mb-4 text-neutral-900 dark:text-neutral-100">Projects and Adventures</h1>
+        <p class="text-xl font-mono text-neutral-500 dark:text-neutral-400">Here's some of the stuff I've been up to.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16 max-w-full">
+      <!-- Project 1 -->
+      <a href="/projects/example" class="group flex flex-row gap-6 items-start">
+        <div class="w-[200px] h-[140px] rounded-3xl overflow-hidden shrink-0 border border-neutral-200 dark:border-white/10 shadow-sm transition-transform group-hover:scale-[1.02]">
+          <div class="w-full h-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+            <span class="text-neutral-400 text-xs">Project Image</span>
+          </div>
+        </div>
+        <div class="flex flex-col pt-2">
+          <h2 class="text-lg font-medium text-neutral-800 dark:text-neutral-200 mb-2">onethreenine.net</h2>
+          <p class="text-[13px] font-mono leading-relaxed text-neutral-500 dark:text-neutral-400">A web accessable corkboard for my apartment.</p>
+        </div>
+      </a>
+
+      <!-- Project 2 -->
+      <a href="/projects/example" class="group flex flex-row gap-6 items-start">
+        <div class="w-[200px] h-[140px] rounded-3xl overflow-hidden shrink-0 border border-neutral-200 dark:border-white/10 shadow-sm transition-transform group-hover:scale-[1.02]">
+          <div class="w-full h-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+            <span class="text-neutral-400 text-xs">Project Image</span>
+          </div>
+        </div>
+        <div class="flex flex-col pt-2">
+          <h2 class="text-lg font-medium text-neutral-800 dark:text-neutral-200 mb-2">Quote Receipts</h2>
+          <p class="text-[13px] font-mono leading-relaxed text-neutral-500 dark:text-neutral-400">"Did I really say that?" Why yes, you did.</p>
+        </div>
+      </a>
+
+     
+      </div>
+    </div>
+  </div>
   </div>
 </Layout>
 
 <style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-  }
-
+  /* Custom serif font fallback if needed, or simply use tailwind font-serif */
   h1 {
-    color: orange;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1.25rem;
-    color: #666;
+    letter-spacing: -0.02em;
   }
 </style>

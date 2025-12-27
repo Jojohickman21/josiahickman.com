@@ -1,12 +1,20 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { WobbleCard } from "@/components/ui/wobble-card";
 ---
 
 <Layout title="Josiah Hickman - Home">
-  <div class="container">
-    <h1>Hello, World!</h1>
-    <p>Welcome to my personal website.</p>
+  <div class="w-full bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-sm transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-16 lg:py-20 w-full text-left">
+      <div class="pl-24 md:pl-32">
+        <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-2 transition-all">Josiah Hickman</h2>
+        <h3 class="text-lg md:text-xl text-neutral-800 dark:text-neutral-200 leading-snug transition-all whitespace-nowrap">
+          I'm a technical founder specializing in applied AI, and controls, Or I'm just Josiah.
+        </h3>
+      </div>
+    </div>
   </div>
+
 </Layout>
 
 <style>
@@ -16,14 +24,9 @@ import Layout from '@/layouts/Layout.astro';
     padding: 4rem 2rem;
   }
 
-  h1 {
-    color: orange;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1.25rem;
-    color: #666;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
   }
 </style>

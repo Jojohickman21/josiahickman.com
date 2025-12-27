@@ -1,14 +1,114 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import DitherBackground from '@/components/DitherBackground';
 ---
 
-<html>
-  <body>
-    <h1>Hello, World!</h1>
-  </body>
-</html>
+<Layout title="Thoughts - Josiah Hickman" showDither={false}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+  <div class="w-full bg-white dark:bg-neutral-900 min-h-screen flex flex-col items-center">
+    <!-- Intro Section with localized Dither -->
+    <section class="relative w-full border-b border-neutral-100 dark:border-white/5 overflow-hidden h-[50vh] min-h-[400px]">
+      <div class="absolute inset-0 z-0">
+        <DitherBackground client:only="react" className="absolute inset-0 z-0 pointer-events-none" src="/Death_star_header.jpg" gridSize={2} colorMode="original" />
+      </div>
+    </section>
+
+    <!-- Writing List Section -->
+    <div class="max-w-2xl mx-auto px-6 py-20 w-full bg-white dark:bg-neutral-900">
+      <div class="mb-16">
+        <h2 class="text-4xl md:text-5xl font-serif text-neutral-900 dark:text-neutral-100 mb-6">My Writings</h2>
+        <h3 class="text-base md:text-lg font-mono text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-xl">
+          Some wonderful things I've<br class="hidden md:block" />
+          experienced and thoughts I've had.
+        </h3>
+      </div>
+
+      <section class="max-w-full">
+      <div class="space-y-12">
+        <!-- Item 1 -->
+        <div class="writparent group">
+          <a href="/thoughts/example" class="block hover:no-underline">
+            <div class="flex justify-between items-baseline mb-2">
+              <p class="text-xl md:text-2xl font-serif text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-600 transition-colors">Viewing College life as a K-armed bandit problem</p>
+              <p class="text-xs font-mono text-neutral-400 shrink-0 ml-4">Dec 2025</p>
+            </div>
+            <div class="flex justify-between items-start">
+              <p class="text-sm font-serif text-neutral-500 dark:text-neutral-400 max-w-xl leading-relaxed">Applying the K-armed bandit framework to life decisions as a College student.</p>
+            </div>
+          </a>
+        </div>
+        <hr class="border-neutral-200 dark:border-white/10" />
+
+        <!-- Item 2 -->
+        <div class="writparent group">
+          <a href="#" class="block hover:no-underline">
+            <div class="flex justify-between items-baseline mb-2">
+              <p class="text-xl md:text-2xl font-serif text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-600 transition-colors">How to create as a neurotic introvert</p>
+              <p class="text-xs font-mono text-neutral-400 shrink-0 ml-4">Dec 2025</p>
+            </div>
+            <div class="flex justify-between items-start">
+              <p class="text-sm font-serif text-neutral-500 dark:text-neutral-400 max-w-xl leading-relaxed">Some thoughts on how to build the future largely outside your comfort zone.</p>
+            </div>
+          </a>
+        </div>
+        <hr class="border-neutral-200 dark:border-white/10" />
+      </div>
+      </section>
+
+    <!-- Simple Footer -->
+    <footer class="mt-32 pb-20 border-t border-neutral-100 dark:border-white/5 pt-12">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex gap-6">
+          <a href="https://github.com/josiahhickman" class="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.841 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+          </a>
+          <a href="mailto:josiah@example.com" class="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          </a>
+        </div>
+        <p class="text-sm font-mono text-neutral-400">Copyright © 2025 Josiah Hickman</p>
+      </div>
+    </footer>
+  </div>
+  </div>
+</Layout>
+
 <style>
-  h1 {
-    color: orange;
+  h2 {
+    font-family: 'Crimson Pro', serif;
+    letter-spacing: -0.01em;
+  }
+  
+  h3, p, span {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-serif {
+    font-family: 'Crimson Pro', serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Simple staggered entry animation */
+  .writparent {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  .writparent:nth-child(1) { animation-delay: 0.1s; }
+  .writparent:nth-child(3) { animation-delay: 0.2s; } /* nth-child includes the <hr> tags */
+  .writparent:nth-child(5) { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

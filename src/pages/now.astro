@@ -1,6 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 ---
+<Layout title="Now - Josiah Hickman">
+  <div class="container">
+    <h1>Now</h1>
+    <p>Check out what I'm working on.</p>
+  </div>
+</Layout>
 
 <html>
   <body>
@@ -8,6 +14,11 @@ import Layout from '@/layouts/Layout.astro';
   </body>
 </html>
 <style>
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
   h1 {
     color: orange;
   }
