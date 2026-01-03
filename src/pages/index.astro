@@ -1,32 +1,677 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { WobbleCard } from "@/components/ui/wobble-card";
 ---
 
-<Layout title="Josiah Hickman - Home">
-  <div class="w-full bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-sm transition-colors duration-300">
-    <div class="max-w-6xl mx-auto px-6 py-16 lg:py-20 w-full text-left">
-      <div class="pl-24 md:pl-32">
-        <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-2 transition-all">Josiah Hickman</h2>
-        <h3 class="text-lg md:text-xl text-neutral-800 dark:text-neutral-200 leading-snug transition-all whitespace-nowrap">
-          I'm a technical founder specializing in applied AI, and controls, Or I'm just Josiah.
-        </h3>
-      </div>
-    </div>
-  </div>
+<Layout title="Josiah Hickman - Home" showDither={false}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
+  <div class="index-page">
+
+    <!-- Hero Section - Organic blob shape -->
+    <section class="hero-section">
+      <div class="hero-blob">
+        <div class="hero-content">
+          <!-- Location Badge -->
+          <div class="location-badge">
+            <span class="pulse-dot"></span>
+            <span>Los Angeles, CA</span>
+          </div>
+          
+          <h1 class="hero-name">Josiah Hickman</h1>
+          <p class="hero-tagline">
+            Technical founder building the future with applied AI and controls.
+          </p>
+          
+          <!-- Social Links -->
+          <div class="social-links">
+            <a href="https://github.com/Jojohickman21" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
+              <svg class="icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.841 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/josiah-hickman-1b9bb1261" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+              <svg class="icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+            </a>
+            <a href="mailto:jhickman@usc.edu" class="social-btn" aria-label="Email">
+              <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Status card -->
+      <div class="status-card">
+        <span class="card-label">Currently</span>
+        <h2>M.S. Applied AI & ML</h2>
+        <p class="subtitle">for Aerospace Engineering</p>
+        <div class="status-meta">
+          <div class="school-info">
+            <img src="/logos/USC.png" alt="USC" class="school-logo" />
+            <span>USC</span>
+          </div>
+          <div class="badges">
+            <span class="badge">May 2027</span>
+            <span class="badge badge-accent">Open to Work</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content area with organic shapes -->
+    <section class="content-section">
+      
+      <!-- Companies - Curved container -->
+      <div class="companies-container">
+        <span class="section-label">Previously At</span>
+        <div class="company-logos">
+          <div class="company-logo">
+            <img src="/logos/Amazon.png" alt="Amazon" />
+          </div>
+          <div class="company-logo">
+            <img src="/logos/Hermeus.png" alt="Hermeus" />
+          </div>
+          <div class="company-logo">
+            <img src="/logos/J&J.png" alt="Johnson & Johnson" />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Seeking - Tilted card -->
+      <div class="seeking-card">
+        <span class="card-label">Seeking</span>
+        <h3>Full-time Robotics & Controls Roles</h3>
+      </div>
+      
+      <!-- Featured Work - Organic blob -->
+      <div class="work-blob">
+        <div class="work-header">
+          <span class="section-label">Featured Work</span>
+          <a href="/projects" class="view-all">
+            View all
+            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+        </div>
+        
+        <div class="project-cards">
+          <a href="/projects/example" class="project-card">
+            <h4>onethreenine.net</h4>
+            <p>Web accessible corkboard for my apartment</p>
+          </a>
+          <a href="/projects/example" class="project-card">
+            <h4>Quote Receipts</h4>
+            <p>"Did I really say that?" Yes, you did.</p>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Writing - Asymmetric shape -->
+      <div class="writing-card">
+        <div class="writing-header">
+          <span class="section-label">Writing</span>
+          <a href="/thoughts" class="view-link">
+            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+        </div>
+        <a href="/thoughts/example" class="writing-item">
+          <h4>Viewing College life as a K-armed bandit problem</h4>
+          <p>Dec 2025</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>© 2025 Josiah Hickman · Built with curiosity</p>
+      <div class="footer-social">
+        <a href="https://github.com/Jojohickman21" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.841 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/josiah-hickman-1b9bb1261" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+        </a>
+        <a href="mailto:jhickman@usc.edu" aria-label="Email">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
 </Layout>
 
 <style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
+  /* ============================================
+     Color Palette - Earthy brown tones
+     ============================================ */
+  :root {
+    --bg-dark: #1a1612;
+    --bg-surface: #231e19;
+    --bg-elevated: #2d2620;
+    --text-primary: #f4efe8;
+    --text-secondary: #c4b8a8;
+    --text-muted: #8c7e6d;
+    --accent: #c67b4e;
+    --accent-muted: rgba(198, 123, 78, 0.18);
+    --border: rgba(244, 239, 232, 0.1);
+    --border-hover: rgba(244, 239, 232, 0.2);
   }
 
-  .container {
+  /* ============================================
+     Base Layout
+     ============================================ */
+  :global(html), :global(body) {
+    background: var(--bg-dark);
+  }
+
+  .index-page {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background: var(--bg-dark);
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ============================================
+     Hero Section - Organic blob layout
+     ============================================ */
+  .hero-section {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3rem;
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .hero-blob {
+    position: relative;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 3rem 3.5rem;
+    max-width: 600px;
+    /* Organic blob shape using border-radius */
+    border-radius: 60% 40% 50% 70% / 50% 60% 40% 50%;
+    transform: rotate(-2deg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .hero-blob:hover {
+    transform: rotate(-1deg) scale(1.01);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  }
+
+  .hero-content {
+    transform: rotate(2deg);
+  }
+
+  .location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent-muted);
+    border: 1px solid rgba(198, 123, 78, 0.25);
+    border-radius: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 450px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .social-btn {
+    padding: 0.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    transition: all 0.25s ease;
+  }
+
+  .social-btn:hover {
+    background: var(--accent-muted);
+    border-color: rgba(198, 123, 78, 0.3);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Status card */
+  .status-card {
+    position: relative;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    border-radius: 20px 60px 20px 40px;
+    max-width: 320px;
+    transform: rotate(3deg);
+    transition: transform 0.4s ease;
+    margin-left: auto;
+  }
+
+  .status-card:hover {
+    transform: rotate(1deg);
+  }
+
+  .card-label {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .status-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .status-card .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .status-meta {
+    margin-top: 1.5rem;
+  }
+
+  .school-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .school-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  .school-info span {
+    font-weight: 500;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .badge {
+    padding: 0.4rem 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .badge-accent {
+    background: var(--accent-muted);
+    border-color: rgba(198, 123, 78, 0.25);
+    color: var(--accent);
+  }
+
+  /* ============================================
+     Content Section - Organic layout
+     ============================================ */
+  .content-section {
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Companies - Curved wave shape */
+  .companies-container {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    border-radius: 20px 80px 30px 60px;
+    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+    transform: rotate(-0.5deg);
+  }
+
+  .company-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .company-logo img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .company-logo:hover img {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* Seeking - Tilted parallelogram-ish */
+  .seeking-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    transform: rotate(1.5deg) skewX(-1deg);
+    border-radius: 30px 15px 40px 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .seeking-card:hover {
+    transform: rotate(0.5deg) skewX(-0.5deg);
+  }
+
+  .seeking-card h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* Work blob - Asymmetric organic */
+  .work-blob {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    border-radius: 50% 20% 40% 30% / 30% 50% 30% 40%;
+    transform: rotate(-1deg);
+    max-width: 700px;
+    transition: transform 0.4s ease;
+  }
+
+  .work-blob:hover {
+    transform: rotate(0deg);
+  }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .view-all {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .view-all:hover {
+    color: var(--accent);
+  }
+
+  .arrow-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.25s ease;
+  }
+
+  .view-all:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+
+  .project-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .project-card {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.25s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    background: rgba(198, 123, 78, 0.05);
+  }
+
+  .project-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    transition: color 0.25s ease;
+  }
+
+  .project-card:hover h4 {
+    color: var(--accent);
+  }
+
+  .project-card p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* Writing - Diamond-ish shape */
+  .writing-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    max-width: 350px;
+    margin-left: 15%;
+    transform: rotate(2deg);
+    border-radius: 15px 45px 25px 35px;
+    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+    transition: transform 0.3s ease;
+  }
+
+  .writing-card:hover {
+    transform: rotate(0.5deg);
+  }
+
+  .writing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .view-link {
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .view-link:hover {
+    color: var(--accent);
+  }
+
+  .writing-item h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    transition: color 0.25s ease;
+  }
+
+  .writing-item:hover h4 {
+    color: var(--accent);
+  }
+
+  .writing-item p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ============================================
+     Footer
+     ============================================ */
+  .site-footer {
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .site-footer p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .footer-social a {
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+  }
+
+  .footer-social a:hover {
+    color: var(--accent);
+  }
+
+  .footer-social svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ============================================
+     Responsive
+     ============================================ */
+  @media (max-width: 900px) {
+    .hero-section {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero-blob {
+      border-radius: 40% 60% 50% 50% / 50% 50% 50% 50%;
+      padding: 2rem;
+    }
+
+    .status-card {
+      transform: rotate(1deg);
+      margin-top: 2rem;
+      max-width: 100%;
+    }
+
+    .status-card:hover {
+      transform: rotate(0);
+    }
+
+    .content-section {
+      padding: 1.5rem;
+    }
+
+    .companies-container {
+      clip-path: none;
+      border-radius: 24px;
+      transform: none;
+    }
+
+    .seeking-card {
+      transform: none;
+      border-radius: 24px;
+      max-width: 100%;
+      margin-left: 0;
+    }
+
+    .work-blob {
+      border-radius: 24px;
+      transform: none;
+    }
+
+    .writing-card {
+      clip-path: none;
+      transform: none;
+      border-radius: 24px;
+      margin-left: 0;
+      max-width: 100%;
+    }
+
+    .cutout-row {
+      padding: 0.5rem 1rem;
+    }
+
+    .cutout {
+      max-width: 120px;
+    }
+
+    .cutout-row-2,
+    .cutout-row-4 {
+      display: none;
+    }
   }
 </style>

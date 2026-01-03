@@ -15,22 +15,22 @@ export default function DockWrapper({ showTOC = false }: DockWrapperProps) {
     const links = [
         {
             title: "Home",
-            icon: <IconHome className="w-full h-full text-neutral-700 dark:text-neutral-300" />,
+            icon: <IconHome className="w-full h-full" style={{ color: '#c4b8a8' }} />,
             href: "/"
         },
         {
             title: "Projects",
-            icon: <IconTerminal2 className="w-full h-full text-neutral-700 dark:text-neutral-300" />,
+            icon: <IconTerminal2 className="w-full h-full" style={{ color: '#c4b8a8' }} />,
             href: "/projects"
         },
         {
             title: "Thoughts",
-            icon: <IconWriting className="w-full h-full text-neutral-700 dark:text-neutral-300" />,
+            icon: <IconWriting className="w-full h-full" style={{ color: '#c4b8a8' }} />,
             href: "/thoughts"
         },
         {
             title: "Now",
-            icon: <IconUserCircle className="w-full h-full text-neutral-700 dark:text-neutral-300" />,
+            icon: <IconUserCircle className="w-full h-full" style={{ color: '#c4b8a8' }} />,
             href: "/now"
         },
     ];

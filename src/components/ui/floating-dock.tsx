@@ -74,9 +74,10 @@ const FloatingDockMobile = ({
                                 <a
                                     href={item.href}
                                     key={item.title}
-                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 shadow-sm"
+                                    className="flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-xl shadow-lg"
+                                    style={{ background: 'rgba(198, 123, 78, 0.15)', border: '1px solid rgba(198, 123, 78, 0.25)' }}
                                 >
-                                    <div className="h-4 w-4 text-neutral-500 dark:text-neutral-400">{item.icon}</div>
+                                    <div className="h-4 w-4" style={{ color: '#c4b8a8' }}>{item.icon}</div>
                                 </a>
                             </motion.div>
                         ))}
@@ -92,9 +93,10 @@ const FloatingDockMobile = ({
                                         onTOCClick();
                                         setOpen(false);
                                     }}
-                                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 shadow-sm"
+                                    className="flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-xl shadow-lg"
+                                    style={{ background: 'rgba(198, 123, 78, 0.15)', border: '1px solid rgba(198, 123, 78, 0.25)' }}
                                 >
-                                    <svg className="w-4 h-4 text-neutral-500 dark:text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4" style={{ color: '#c4b8a8' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                                     </svg>
                                 </button>
@@ -105,9 +107,10 @@ const FloatingDockMobile = ({
             </AnimatePresence>
             <button
                 onClick={() => setOpen(!open)}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-800 shadow-sm"
+                className="flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-xl shadow-lg"
+                style={{ background: 'rgba(198, 123, 78, 0.15)', border: '1px solid rgba(198, 123, 78, 0.25)' }}
             >
-                <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+                <IconLayoutNavbarCollapse className="h-5 w-5" style={{ color: '#c4b8a8' }} />
             </button>
         </div>
     );
@@ -130,9 +133,10 @@ const FloatingDockDesktop = ({
             onMouseMove={(e) => mouseX.set(e.pageX)}
             onMouseLeave={() => mouseX.set(Infinity)}
             className={cn(
-                "mx-auto hidden h-12 items-center gap-4 rounded-2xl px-4 pb-3 md:flex bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 shadow-xl",
+                "mx-auto hidden h-12 items-center gap-4 rounded-2xl px-4 pb-3 md:flex backdrop-blur-xl shadow-xl",
                 className,
             )}
+            style={{ background: 'rgba(198, 123, 78, 0.12)', border: '1px solid rgba(198, 123, 78, 0.2)' }}
         >
             {items.map((item) => (
                 <IconContainer mouseX={mouseX} key={item.title} {...item} />
@@ -211,10 +215,10 @@ function IconContainer({
         <a href={href}>
             <motion.div
                 ref={ref}
-                style={{ width, height }}
+                style={{ width, height, background: 'rgba(198, 123, 78, 0.2)' }}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
-                className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800 border-none shadow-sm origin-bottom"
+                className="relative flex aspect-square items-center justify-center rounded-full backdrop-blur-xl border-none shadow-sm origin-bottom"
             >
                 <AnimatePresence>
                     {hovered && (
@@ -222,7 +226,8 @@ function IconContainer({
                             initial={{ opacity: 0, y: 10, x: "-50%" }}
                             animate={{ opacity: 1, y: 0, x: "-50%" }}
                             exit={{ opacity: 0, y: 2, x: "-50%" }}
-                            className="absolute -top-8 left-1/2 w-fit rounded-md px-2 py-0.5 text-xs whitespace-pre bg-gray-200 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-900 text-neutral-700 dark:text-white"
+                            className="absolute -top-8 left-1/2 w-fit rounded-md px-2 py-0.5 text-xs whitespace-pre backdrop-blur-xl"
+                            style={{ background: 'rgba(45, 38, 32, 0.9)', border: '1px solid rgba(198, 123, 78, 0.3)', color: '#f4efe8' }}
                         >
                             {title}
                         </motion.div>
@@ -296,10 +301,10 @@ function IconContainerButton({
         <motion.button
             ref={ref}
             onClick={onClick}
-            style={{ width, height }}
+            style={{ width, height, background: 'rgba(198, 123, 78, 0.2)' }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800 border-none shadow-sm origin-bottom"
+            className="relative flex aspect-square items-center justify-center rounded-full backdrop-blur-xl border-none shadow-sm origin-bottom"
         >
             <AnimatePresence>
                 {hovered && (
@@ -307,7 +312,8 @@ function IconContainerButton({
                         initial={{ opacity: 0, y: 10, x: "-50%" }}
                         animate={{ opacity: 1, y: 0, x: "-50%" }}
                         exit={{ opacity: 0, y: 2, x: "-50%" }}
-                        className="absolute -top-8 left-1/2 w-fit rounded-md px-2 py-0.5 text-xs whitespace-pre bg-gray-200 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-900 text-neutral-700 dark:text-white"
+                        className="absolute -top-8 left-1/2 w-fit rounded-md px-2 py-0.5 text-xs whitespace-pre backdrop-blur-xl"
+                        style={{ background: 'rgba(45, 38, 32, 0.9)', border: '1px solid rgba(198, 123, 78, 0.3)', color: '#f4efe8' }}
                     >
                         {title}
                     </motion.div>

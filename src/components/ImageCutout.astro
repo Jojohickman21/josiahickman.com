@@ -1,0 +1,67 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
+  rotation?: number;
+  size?: 'sm' | 'md' | 'lg';
+  offsetX?: string;
+  offsetY?: string;
+  className?: string;
+}
+
+const { 
+  src, 
+  alt = 'Decorative image',
+  position = 'top-right', 
+  rotation = 0,
+  size = 'md',
+  offsetX = '0',
+  offsetY = '0',
+  className = ''
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-24 h-24 md:w-32 md:h-32',
+  md: 'w-32 h-32 md:w-48 md:h-48',
+  lg: 'w-48 h-48 md:w-64 md:h-64'
+};
+
+const positionStyles = {
+  'top-left': 'top-0 left-0',
+  'top-right': 'top-0 right-0',
+  'bottom-left': 'bottom-0 left-0',
+  'bottom-right': 'bottom-0 right-0',
+  'left': 'top-1/2 left-0 -translate-y-1/2',
+  'right': 'top-1/2 right-0 -translate-y-1/2'
+};
+---
+
+<div 
+  class:list={[
+    'cutout-image absolute pointer-events-none z-0 opacity-80 transition-transform duration-500',
+    positionStyles[position],
+    sizeClasses[size],
+    className
+  ]}
+  style={`transform: rotate(${rotation}deg) translate(${offsetX}, ${offsetY});`}
+>
+  <img 
+    src={src} 
+    alt={alt}
+    class="w-full h-full object-cover rounded-lg shadow-lg"
+    loading="lazy"
+  />
+</div>
+
+<style>
+  .cutout-image {
+    filter: 
+      drop-shadow(0 10px 20px rgba(0,0,0,0.15))
+      drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+  }
+
+  .cutout-image:hover {
+    transform: scale(1.02);
+  }
+</style>

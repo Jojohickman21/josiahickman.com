@@ -96,15 +96,14 @@ import Layout from '@/layouts/Layout.astro';
     height: fit-content;
     padding: 1.5rem;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
   }
 
   .toc h2 {
     font-size: 1.25rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: var(--text-primary);
   }
 
   .toc nav ul {
@@ -117,13 +116,13 @@ import Layout from '@/layouts/Layout.astro';
   }
 
   .toc nav a {
-    color: #666;
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s;
   }
 
   .toc nav a:hover {
-    color: orange;
+    color: var(--accent);
   }
 
   .content {
@@ -137,15 +136,12 @@ import Layout from '@/layouts/Layout.astro';
   h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, orange, #ff6b35);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
   }
 
   .subtitle {
     font-size: 1.25rem;
-    color: #666;
+    color: var(--text-secondary);
   }
 
   section {
@@ -155,20 +151,20 @@ import Layout from '@/layouts/Layout.astro';
   section h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: var(--text-primary);
   }
 
   section p {
     font-size: 1.125rem;
     line-height: 1.75;
-    color: #555;
+    color: var(--text-secondary);
     margin-bottom: 1rem;
   }
 
   section ul {
     font-size: 1.125rem;
     line-height: 1.75;
-    color: #555;
+    color: var(--text-secondary);
     margin-left: 1.5rem;
   }
 
@@ -193,35 +189,6 @@ import Layout from '@/layouts/Layout.astro';
 
     section h2 {
       font-size: 1.5rem;
-    }
-  }
-
-  /* Dark mode styles */
-  @media (prefers-color-scheme: dark) {
-    .toc {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .toc h2 {
-      color: #fff;
-    }
-
-    .toc nav a {
-      color: #aaa;
-    }
-
-    .toc nav a:hover {
-      color: orange;
-    }
-
-    section h2 {
-      color: #fff;
-    }
-
-    section p,
-    section ul {
-      color: #ccc;
     }
   }
 </style>
