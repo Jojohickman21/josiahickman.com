@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Josiah Hickman - Design Engineer | Building Digital Worlds">
-  <title>Josiah Hickman | Design Engineer</title>
+  <meta name="description" content="Josiah Hickman - Robotics Engineer | Building Digital Worlds">
+  <title>Josiah Hickman | Robotics Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
-    html, body {
+
+    html,
+    body {
       width: 100%;
       height: 100%;
       overflow: hidden;
       background: #0a0a0a;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    
+
     #app {
       width: 100%;
       height: 100%;
@@ -30,11 +34,11 @@
       top: 0;
       left: 0;
     }
-    
+
     canvas {
       display: block;
     }
-    
+
     /* Loading screen */
     #loader {
       position: fixed;
@@ -49,12 +53,12 @@
       z-index: 1000;
       transition: opacity 0.6s ease, visibility 0.6s ease;
     }
-    
+
     #loader.hidden {
       opacity: 0;
       visibility: hidden;
     }
-    
+
     .loader-text {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.5rem, 4vw, 3rem);
@@ -63,7 +67,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
     }
-    
+
     /* Back button for Content Mode */
     #back-button {
       position: fixed;
@@ -86,17 +90,17 @@
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
+
     #back-button:hover {
       background: rgba(255, 255, 255, 0.2);
       transform: translateX(-4px);
     }
-    
+
     #back-button.visible {
       opacity: 1;
       visibility: visible;
     }
-    
+
     /* Cursor hint */
     #cursor-hint {
       position: fixed;
@@ -110,19 +114,65 @@
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
+
+    /* Custom cursor */
+    html,
+    body {
+      cursor: none;
+    }
+
+    #custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+      mix-blend-mode: difference;
+    }
+
+    #custom-cursor.hovering {
+      width: 48px;
+      height: 48px;
+      border-color: rgba(255, 255, 255, 1);
+    }
+
+    #custom-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+    }
   </style>
 </head>
+
 <body>
   <div id="loader">
     <span class="loader-text">Loading</span>
   </div>
-  
+
   <div id="app"></div>
-  
+
   <button id="back-button">← Back to Map</button>
-  
+
   <div id="cursor-hint">Drag to explore • Scroll to zoom • Double-click to enter</div>
-  
+
+  <!-- Custom cursor elements -->
+  <div id="custom-cursor"></div>
+  <div id="custom-cursor-dot"></div>
+
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-import { Application, Container, Graphics, Text, TextStyle, FederatedPointerEvent } from 'pixi.js';
+import { Application, Container, Graphics, Text, TextStyle, FederatedPointerEvent, Rectangle } from 'pixi.js';
 import { gsap } from 'gsap';
 import { Section, WritingItem } from '../config';
 import { StateManager, DepthLevel } from '../core/StateManager';
@@ -24,6 +24,13 @@ export class ContentSlide extends Slide {
     // Layout constants
     private readonly ITEM_WIDTH = 300;
     private readonly ITEM_GAP = 40;
+
+    // Drag state for event trapping
+    private isDragging: boolean = false;
+    private lastDragX: number = 0;
+
+    // Debug mode (set to true to see hit area)
+    private readonly DEBUG_HIT_AREA = false;
 
     constructor(section: Section, app: Application, stateManager: StateManager) {
         super(section, app);
@@ -88,6 +95,77 @@ export class ContentSlide extends Slide {
                     this.handleScroll(deltaX);
                 }
             }
+        });
+
+        // Setup drag event handlers
+        this.setupDragScrolling();
+    }
+
+    /**
+     * Setup drag-based horizontal scrolling with event trapping
+     */
+    private setupDragScrolling(): void {
+        // Make the container catch pointer events
+        this.container.eventMode = 'static';
+        this.container.cursor = 'grab';
+
+        // CRITICAL: Use massive hit area to ensure we catch ALL events
+        this.container.hitArea = new Rectangle(
+            -5000,
+            -5000,
+            10000,
+            10000
+        );
+
+        // Visual debugger - shows hit area as red rectangle
+        if (this.DEBUG_HIT_AREA) {
+            const debugRect = new Graphics();
+            debugRect.rect(-this.width / 2, -this.height / 2, this.width, this.height);
+            debugRect.fill({ color: 0xff0000, alpha: 0.3 });
+            this.container.addChild(debugRect);
+            console.log('[ContentSlide] Debug hit area visible');
+        }
+
+        // Pointer down - start drag
+        this.container.on('pointerdown', (e: FederatedPointerEvent) => {
+            if (this.stateManager.currentSlideId !== this.section.id) return;
+
+            e.stopPropagation();
+            this.isDragging = true;
+            this.lastDragX = e.global.x;
+            this.container.cursor = 'grabbing';
+
+            // Pause global viewport dragging
+            this.stateManager.emit('carouselDragStart');
+        });
+
+        // Global pointer move - handle drag
+        this.container.on('globalpointermove', (e: FederatedPointerEvent) => {
+            if (!this.isDragging) return;
+
+            const deltaX = e.global.x - this.lastDragX;
+            this.lastDragX = e.global.x;
+
+            // Apply to timeline scroll
+            this.targetScrollX -= deltaX;
+            this.targetScrollX = Math.max(0, Math.min(this.maxScroll, this.targetScrollX));
+        });
+
+        // Pointer up - end drag
+        this.container.on('pointerup', () => {
+            this.isDragging = false;
+            this.container.cursor = 'grab';
+
+            // Resume global viewport dragging
+            this.stateManager.emit('carouselDragEnd');
+        });
+
+        this.container.on('pointerupoutside', () => {
+            this.isDragging = false;
+            this.container.cursor = 'grab';
+
+            // Resume global viewport dragging
+            this.stateManager.emit('carouselDragEnd');
         });
     }
 

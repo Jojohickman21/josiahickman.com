@@ -87,9 +87,9 @@ export const worldConfig: WorldConfig = {
             worldCoordinates: { x: 0, y: 0 },
             type: 'hero',
             content: {
-                heading: 'Design Engineer',
-                sub: 'Building Digital Worlds',
-                description: 'Crafting immersive experiences at the intersection of design and technology.',
+                heading: 'Josiah Hickman',
+                sub: 'Robotics Engineer',
+                description: 'Building...',
             },
         },
         {

@@ -30,6 +30,9 @@ export class InputManager {
     // Mouse position for parallax
     public mousePosition: { x: number; y: number } = { x: 0, y: 0 };
 
+    // Drag pause for carousel event trapping
+    private dragPaused: boolean = false;
+
     constructor(app: Application, camera: Camera, stateManager: StateManager) {
         this.app = app;
         this.camera = camera;
@@ -114,6 +117,7 @@ export class InputManager {
 
     private onPointerDown(e: MouseEvent): void {
         if (this.stateManager.state !== AppState.NAVIGATION) return;
+        if (this.dragPaused) return; // Carousel is handling drag
 
         this.isDragging = true;
         this.camera.setDragging(true);
@@ -131,7 +135,7 @@ export class InputManager {
         this.mousePosition.x = (e.clientX / window.innerWidth - 0.5) * 2;
         this.mousePosition.y = (e.clientY / window.innerHeight - 0.5) * 2;
 
-        if (!this.isDragging || this.stateManager.state !== AppState.NAVIGATION) return;
+        if (!this.isDragging || this.stateManager.state !== AppState.NAVIGATION || this.dragPaused) return;
 
         const dx = e.clientX - this.lastDragPos.x;
         const dy = e.clientY - this.lastDragPos.y;
@@ -221,5 +225,23 @@ export class InputManager {
         if (this.keys.has('ArrowDown')) {
             this.camera.pan(0, -panSpeed);
         }
+    }
+
+    /**
+     * Pause global drag handling (called by carousel when it starts dragging)
+     */
+    public pauseDrag(): void {
+        this.dragPaused = true;
+        if (this.isDragging) {
+            this.isDragging = false;
+            this.camera.setDragging(false);
+        }
+    }
+
+    /**
+     * Resume global drag handling (called by carousel when it stops dragging)
+     */
+    public resumeDrag(): void {
+        this.dragPaused = false;
     }
 }

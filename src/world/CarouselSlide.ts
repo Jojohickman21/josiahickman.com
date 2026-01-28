@@ -1,4 +1,4 @@
-import { Application, Container, Graphics, Text, TextStyle, FederatedPointerEvent } from 'pixi.js';
+import { Application, Container, Graphics, Text, TextStyle, FederatedPointerEvent, Rectangle } from 'pixi.js';
 import { gsap } from 'gsap';
 import { Section, ProjectItem } from '../config';
 import { StateManager, DepthLevel } from '../core/StateManager';
@@ -33,6 +33,15 @@ export class CarouselSlide extends Slide {
     private readonly ITEM_WIDTH = 500;
     private readonly _ITEM_HEIGHT = 600; // Reserved for vertical card bounds
     private readonly ITEM_GAP = 60;
+
+    // Drag state for event trapping
+    private isDragging: boolean = false;
+    private dragStartX: number = 0;
+    private lastDragX: number = 0;
+    private containerStartX: number = 0;
+
+    // Debug mode (set to true to see hit area)
+    private readonly DEBUG_HIT_AREA = false;
 
     constructor(section: Section, app: Application, stateManager: StateManager) {
         super(section, app);
@@ -81,6 +90,102 @@ export class CarouselSlide extends Slide {
                 // Vertical scrolling within cards can be added later
             }
         });
+
+        // Setup drag event handlers for horizontal scroll trapping
+        this.setupDragScrolling();
+    }
+
+    /**
+     * Setup drag-based horizontal scrolling with event trapping
+     */
+    private setupDragScrolling(): void {
+        // Make the container catch pointer events
+        this.container.eventMode = 'static';
+        this.container.cursor = 'grab';
+
+        // CRITICAL: Use massive hit area to ensure we catch ALL events
+        // This prevents clicks on empty space from falling through to viewport
+        this.container.hitArea = new Rectangle(
+            -5000,
+            -5000,
+            10000,
+            10000
+        );
+
+        // Visual debugger - shows hit area as red rectangle
+        if (this.DEBUG_HIT_AREA) {
+            const debugRect = new Graphics();
+            debugRect.rect(-this.width / 2, -this.height / 2, this.width, this.height);
+            debugRect.fill({ color: 0xff0000, alpha: 0.3 });
+            this.container.addChild(debugRect);
+            console.log('[CarouselSlide] Debug hit area visible');
+        }
+
+        // Pointer down - start drag
+        this.container.on('pointerdown', (e: FederatedPointerEvent) => {
+            // Only trap events when in SECTION mode
+            if (this.stateManager.currentSlideId !== this.section.id) return;
+
+            e.stopPropagation(); // Prevent viewport from receiving the event
+            this.isDragging = true;
+            this.dragStartX = e.global.x;
+            this.lastDragX = e.global.x;
+            this.containerStartX = this.currentScrollX; // Store current scroll position
+            this.container.cursor = 'grabbing';
+
+            // Pause global viewport dragging
+            this.stateManager.emit('carouselDragStart');
+
+            // Kill any existing snap animation
+            this.isSnapping = false;
+            this.scrollVelocity = 0;
+        });
+
+        // Global pointer move - handle drag
+        this.container.on('globalpointermove', (e: FederatedPointerEvent) => {
+            if (!this.isDragging) return;
+
+            const deltaX = e.global.x - this.lastDragX;
+            this.lastDragX = e.global.x;
+
+            // Apply drag movement (inverted for natural scroll feel)
+            this.scrollVelocity = -deltaX * this.SCROLL_SENSITIVITY;
+            this.currentScrollX -= deltaX;
+
+            // Clamp to bounds
+            const maxScroll = (this.items.length - 1) * (this.ITEM_WIDTH + this.ITEM_GAP);
+            this.currentScrollX = Math.max(0, Math.min(maxScroll, this.currentScrollX));
+
+            this.updateCardPositions();
+        });
+
+        // Pointer up - end drag and apply momentum
+        this.container.on('pointerup', () => {
+            if (!this.isDragging) return;
+            this.endDrag();
+        });
+
+        this.container.on('pointerupoutside', () => {
+            if (!this.isDragging) return;
+            this.endDrag();
+        });
+    }
+
+    /**
+     * End drag and trigger snap
+     */
+    private endDrag(): void {
+        this.isDragging = false;
+        this.container.cursor = 'grab';
+
+        // Resume global viewport dragging
+        this.stateManager.emit('carouselDragEnd');
+
+        // If velocity is low, snap immediately
+        if (Math.abs(this.scrollVelocity) < 2) {
+            this.snapToNearestCard();
+        }
+        // Otherwise let momentum carry and snap when it slows
     }
 
     private createHeader(): Text {

@@ -77,6 +77,17 @@ class PortfolioApp {
         // Setup back button
         this.setupBackButton();
 
+        // Setup custom cursor
+        this.setupCustomCursor();
+
+        // Setup carousel drag event forwarding to InputManager
+        this.stateManager.on('carouselDragStart', () => {
+            this.input.pauseDrag();
+        });
+        this.stateManager.on('carouselDragEnd', () => {
+            this.input.resumeDrag();
+        });
+
         // Start render loop
         this.app.ticker.add(this.update.bind(this));
 
@@ -109,6 +120,55 @@ class PortfolioApp {
                 }
             });
         }
+    }
+
+    private setupCustomCursor(): void {
+        const cursor = document.getElementById('custom-cursor');
+        const cursorDot = document.getElementById('custom-cursor-dot');
+
+        if (!cursor || !cursorDot) return;
+
+        // Track mouse position with GSAP for smooth movement
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.15,
+                ease: 'power2.out',
+            });
+
+            gsap.set(cursorDot, {
+                x: e.clientX,
+                y: e.clientY,
+            });
+        });
+
+        // Add hover effects for interactive elements
+        const addHoverListeners = () => {
+            const interactables = document.querySelectorAll('button, a, [data-interactive]');
+            interactables.forEach((el) => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hovering');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hovering');
+                });
+            });
+        };
+
+        // Initial setup
+        addHoverListeners();
+
+        // Also handle canvas hover (WebGL interactive elements)
+        this.app.canvas.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+            cursorDot.style.opacity = '1';
+        });
+
+        this.app.canvas.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0.5';
+            cursorDot.style.opacity = '0.5';
+        });
     }
 
     private hideLoader(): void {

@@ -198,6 +198,17 @@ export class World {
             console.log('[World] Unfold triggered - zooming to navigation view');
             this.camera.animateToNavigation();
         });
+
+        // Handle navigation from hero menu items
+        this.stateManager.on('navigateToSlide', (slideId: string) => {
+            console.log(`[World] Navigating to slide: ${slideId}`);
+            const targetSlide = this.slides.get(slideId);
+            if (targetSlide) {
+                this.enterSlide(targetSlide);
+            } else {
+                console.warn(`[World] Slide not found: ${slideId}`);
+            }
+        });
     }
 
     private applyGrainShader(): void {

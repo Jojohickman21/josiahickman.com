@@ -25,6 +25,20 @@ const scatterConfig: ScatterItem[] = [
 ];
 
 /**
+ * Navigation menu item configuration
+ */
+interface NavItem {
+    label: string;
+    slideId: string;
+}
+
+const navConfig: NavItem[] = [
+    { label: 'PROJECTS', slideId: 'projects' },
+    { label: 'WRITINGS', slideId: 'writings' },
+    { label: 'NOW', slideId: 'now' },
+];
+
+/**
  * HeroSlide - "Hero Collage" Redesign
  * Premium parallax scene with floating images, filmstrip, and mouse tracking
  */
@@ -42,6 +56,7 @@ export class HeroSlide extends Slide {
     private filmstripContainer: Container;
     private filmstripItems: Graphics[] = [];
     private unfoldButton: Container;
+    private navMenu: Container;
 
     // Mouse tracking
     private mouseX: number = 0;
@@ -51,6 +66,7 @@ export class HeroSlide extends Slide {
 
     // Animation
     private filmstripOffset: number = 0;
+    private filmstripPaused: boolean = false;
 
     constructor(section: Section, app: Application, stateManager?: StateManager) {
         super(section, app);
@@ -77,11 +93,13 @@ export class HeroSlide extends Slide {
         // Create content in layers
         this.createFloatingImages();
         this.centralText = this.createCentralTypography();
+        this.navMenu = this.createNavigationMenu();
         this.filmstripContainer = this.createFilmstrip();
         this.unfoldButton = this.createUnfoldButton();
 
         // Add to layers
         this.layerMiddle.addChild(this.centralText);
+        this.layerMiddle.addChild(this.navMenu);
         this.layerMiddle.addChild(this.unfoldButton);
         this.container.addChild(this.filmstripContainer);
 
@@ -90,6 +108,86 @@ export class HeroSlide extends Slide {
 
         // Play intro animation
         this.playIntroAnimation();
+    }
+
+    /**
+     * Create the navigation menu with interactive items
+     */
+    private createNavigationMenu(): Container {
+        const menu = new Container();
+        menu.position.set(0, 80);
+
+        const itemSpacing = 120;
+        const totalWidth = (navConfig.length - 1) * itemSpacing;
+        const startX = -totalWidth / 2;
+
+        navConfig.forEach((item, index) => {
+            const navItem = this.createNavItem(item, startX + index * itemSpacing);
+            menu.addChild(navItem);
+        });
+
+        return menu;
+    }
+
+    /**
+     * Create a single navigation item
+     */
+    private createNavItem(item: NavItem, x: number): Container {
+        const container = new Container();
+        container.position.set(x, 0);
+
+        // Text style
+        const style = new TextStyle({
+            fontFamily: 'Inter, -apple-system, sans-serif',
+            fontSize: 14,
+            fontWeight: '500',
+            fill: '#666666',
+            letterSpacing: 3,
+        });
+
+        const text = new Text({ text: item.label, style });
+        text.anchor.set(0.5, 0.5);
+        container.addChild(text);
+
+        // Underline (hidden by default)
+        const underline = new Graphics();
+        underline.rect(-text.width / 2, 12, text.width, 1);
+        underline.fill({ color: 0xffffff });
+        underline.alpha = 0;
+        container.addChild(underline);
+
+        // Interactive
+        container.eventMode = 'static';
+        container.cursor = 'pointer';
+        container.hitArea = { contains: (px: number, py: number) => Math.abs(px) < 50 && Math.abs(py) < 20 };
+
+        // Hover effects
+        container.on('pointerover', () => {
+            gsap.to(text.style, { fill: '#ffffff', duration: 0.25 });
+            gsap.to(underline, { alpha: 1, duration: 0.25 });
+        });
+
+        container.on('pointerout', () => {
+            gsap.to(text.style, { fill: '#666666', duration: 0.25 });
+            gsap.to(underline, { alpha: 0, duration: 0.25 });
+        });
+
+        // Click handler - emit navigation event
+        container.on('pointertap', () => {
+            this.handleNavigation(item.slideId);
+        });
+
+        return container;
+    }
+
+    /**
+     * Handle navigation to a slide
+     */
+    private handleNavigation(slideId: string): void {
+        console.log(`[HeroSlide] Navigating to: ${slideId}`);
+        if (this.stateManager) {
+            this.stateManager.emit('navigateToSlide', slideId);
+        }
     }
 
     /**
@@ -155,8 +253,21 @@ export class HeroSlide extends Slide {
      * Create the footer filmstrip with scrolling thumbnails
      */
     private createFilmstrip(): Container {
+        const wrapper = new Container();
+        wrapper.position.set(0, this.height / 2 - 80);
+
+        // Create mask to clip filmstrip at slide edges
+        const maskGraphics = new Graphics();
+        const maskWidth = this.width - 100; // Slight padding from edges
+        const maskHeight = 100;
+        maskGraphics.rect(-maskWidth / 2, -maskHeight / 2, maskWidth, maskHeight);
+        maskGraphics.fill({ color: 0xffffff });
+        wrapper.addChild(maskGraphics);
+
+        // Filmstrip content container (will be masked)
         const filmstrip = new Container();
-        filmstrip.position.set(0, this.height / 2 - 80);
+        filmstrip.mask = maskGraphics;
+        wrapper.addChild(filmstrip);
 
         const itemCount = 20;
         const itemWidth = 60;
@@ -173,12 +284,47 @@ export class HeroSlide extends Slide {
 
             item.position.set(i * (itemWidth + gap) - totalWidth, -itemHeight / 2);
             item.alpha = 0.6;
+            item.pivot.set(itemWidth / 2, itemHeight / 2);
+            item.position.x += itemWidth / 2;
+            item.position.y += itemHeight / 2;
+
+            // Make interactive for hover effects
+            item.eventMode = 'static';
+            item.cursor = 'pointer';
+
+            // Spring magnification on hover
+            item.on('pointerover', () => {
+                this.filmstripPaused = true;
+                gsap.to(item.scale, {
+                    x: 1.3,
+                    y: 1.3,
+                    duration: 0.5,
+                    ease: 'elastic.out(1, 0.5)',
+                });
+                gsap.to(item, { alpha: 1, duration: 0.2 });
+            });
+
+            item.on('pointerout', () => {
+                this.filmstripPaused = false;
+
+                // Kill any running scale animations to prevent stuck state
+                gsap.killTweensOf(item.scale);
+                gsap.killTweensOf(item);
+
+                gsap.to(item.scale, {
+                    x: 1,
+                    y: 1,
+                    duration: 0.3,
+                    ease: 'back.out(1.7)',
+                });
+                gsap.to(item, { alpha: 0.6, duration: 0.2 });
+            });
 
             filmstrip.addChild(item);
             this.filmstripItems.push(item);
         }
 
-        return filmstrip;
+        return wrapper;
     }
 
     /**
@@ -351,8 +497,10 @@ export class HeroSlide extends Slide {
             -this.mouseY * frontFactor
         );
 
-        // Filmstrip infinite scroll
-        this.filmstripOffset += 0.3;
+        // Filmstrip infinite scroll (pause on hover)
+        if (!this.filmstripPaused) {
+            this.filmstripOffset += 0.3;
+        }
         const itemWidth = 70; // item + gap
         const resetPoint = 20 * itemWidth; // total items * width
 
